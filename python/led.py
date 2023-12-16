@@ -65,16 +65,16 @@ def _update_esp8266():
     MAX_PIXELS_PER_PACKET = 126
     # Pixel indices
     idx = range(pixels.shape[1])
-    idx = [i for i in idx if not np.array_equal(p[:, i], _prev_pixels[:, i])]
+    # idx = [i for i in idx if not np.array_equal(p[:, i], _prev_pixels[:, i])]
     n_packets = len(idx) // MAX_PIXELS_PER_PACKET + 1
     idx = np.array_split(idx, n_packets)
     for packet_indices in idx:
         m = '' if _is_python_2 else []
         for i in packet_indices:
             if _is_python_2:
-                m += chr(i) + chr(p[0][i]) + chr(p[1][i]) + chr(p[2][i])
+                m += chr(p[0][i]) + chr(p[1][i]) + chr(p[2][i])
             else:
-                m.append(i)  # Index of pixel to change
+                # m.append(i)  # Index of pixel to change
                 m.append(p[0][i])  # Pixel red value
                 m.append(p[1][i])  # Pixel green value
                 m.append(p[2][i])  # Pixel blue value
